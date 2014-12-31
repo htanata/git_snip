@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = GitSnip::VERSION
   spec.authors       = ["Hendy Tanata"]
   spec.email         = ["htanata@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Clean obsolete branches on your local git repository safely}
   spec.homepage      = ""
   spec.license       = "MIT"
 

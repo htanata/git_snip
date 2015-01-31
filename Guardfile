@@ -48,9 +48,6 @@ guard :rspec, cmd: "bundle exec rspec" do
   ruby = dsl.ruby
   dsl.watch_spec_files_for(ruby.lib_files)
 
-  # Capybara features specs
-  watch(rails.view_dirs)     { |m| rspec.spec.("features/#{m[1]}") }
-
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|

@@ -26,7 +26,17 @@ And then execute:
 
 ## Usage
 
-  git snip
+Delete branches already merged to master:
+
+    $ git snip -f
+
+Delete branches already merged to master on `/some/repo/path`:
+
+    $ git snip -f --repo=/some/repo/path
+
+Delete branches already merged to `branch_a`:
+
+    $ git snip -f --target=branch_a
 
 ## Contributing
 

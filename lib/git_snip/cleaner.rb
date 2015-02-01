@@ -13,6 +13,22 @@ module GitSnip
       local_branches.select { |branch| merged?(branch) }
     end
 
+    def delete_merged_branches
+      checkout_target_branch
+
+      merged_branches.map do |branch|
+        delete = true
+        delete = yield branch if block_given?
+
+        if delete
+          branch.delete
+          branch
+        else
+          nil
+        end
+      end.to_a
+    end
+
     private
 
     def local_branches
@@ -24,6 +40,10 @@ module GitSnip
     def merged?(branch)
       @git.lib.send(:command, 'cherry', [@target_branch, branch.name])
         .each_line.all? { |line| line.start_with?('-') }
+    end
+
+    def checkout_target_branch
+      @git.checkout(@target_branch)
     end
   end
 end

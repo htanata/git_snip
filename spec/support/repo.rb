@@ -43,6 +43,10 @@ class Repo
     @git.checkout(branch)
   end
 
+  def branch_exists?(branch)
+    @git.branches[branch]
+  end
+
   def destroy
     FileUtils.rm_rf(path)
   end

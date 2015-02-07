@@ -2,7 +2,7 @@ before_script:
   - git config --global user.email "you@example.com"
   - git config --global user.name "Your Name"
 
-script: bundle exec rspec
+script: CODECLIMATE_REPO_TOKEN=ea0ada8842b47f59715526e88df53a81afff061152ce67bb73a8baa75443ea43 bundle exec rspec
 
 rvm:
   - 2.0.0

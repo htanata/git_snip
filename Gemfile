@@ -8,3 +8,7 @@ group :dev do
   gem 'guard', '~> 2.11.1'
   gem 'guard-rspec', '~> 4.5.0'
 end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+end

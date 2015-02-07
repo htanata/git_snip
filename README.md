@@ -28,7 +28,7 @@ And then execute:
 
 ## Usage
 
-Show branches which would be deleted:
+Show branches which would be deleted (accepts the same arguments as `-f`):
 
     $ git snip -n
 

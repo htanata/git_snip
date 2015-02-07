@@ -1,6 +1,7 @@
 # git-snip
 
 [![Build Status](https://travis-ci.org/htanata/git_snip.svg?branch=master)](https://travis-ci.org/htanata/git_snip)
+[![Code Climate](https://codeclimate.com/github/htanata/git_snip/badges/gpa.svg)](https://codeclimate.com/github/htanata/git_snip)
 
 Clean obsolete branches on your git repository safely.
 

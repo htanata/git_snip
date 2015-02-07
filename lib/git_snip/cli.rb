@@ -33,12 +33,16 @@ module GitSnip
       say 'Deleting the following branches...', :green
       say
 
-      cleaner.delete_merged_branches do |branch|
+      deleted_branches = cleaner.delete_merged_branches do |branch|
         say_branch_info(branch)
         true
       end
 
-      say "\n\nDone.", :green
+      if deleted_branches.empty?
+        say 'No branches were deleted.', :green
+      else
+        say "\n\nDone.", :green
+      end
     end
     default_task :snip
 
@@ -50,11 +54,17 @@ module GitSnip
       say 'Would delete the following branches...', :green
       say
 
-      cleaner.merged_branches.each do |branch|
+      merged_branches = cleaner.merged_branches
+
+      merged_branches.each do |branch|
         say_branch_info(branch)
       end
 
-      say "\n\nDone.", :green
+      if merged_branches.any?
+        say "\n\nDone.", :green
+      else
+        say 'No branches would be deleted.', :green
+      end
     end
 
     def say_branch_info(branch)

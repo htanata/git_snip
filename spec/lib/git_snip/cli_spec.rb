@@ -18,11 +18,9 @@ RSpec.describe GitSnip::CLI do
   end
 
   describe 'with -f' do
-    before do
-      setup_basic_repo
-    end
-
     it 'should delete branches merged to master' do
+      setup_basic_repo
+
       stdout, _, exitstatus = git_snip('-f')
 
       expect(stdout).to match("Deleting the following branches...\n\n")
@@ -32,14 +30,25 @@ RSpec.describe GitSnip::CLI do
 
       expect(repo.branch_exists?('merged')).to be_falsey
     end
+
+    it 'should show decent message when there are no deleted branches' do
+      repo.commit 'Version 1'
+
+      stdout, _, exitstatus = git_snip('-f')
+
+      expect(stdout).to eq(
+        "Deleting the following branches...\n\n" \
+        "No branches were deleted.\n"
+      )
+
+      expect(exitstatus).to eq(0)
+    end
   end
 
   describe 'with --dry-run' do
-    before do
-      setup_basic_repo
-    end
-
     it 'should list branches merged to master' do
+      setup_basic_repo
+
       stdout, _, exitstatus = git_snip('--dry-run')
 
       expect(stdout).to match("Would delete the following branches...\n\n")
@@ -48,6 +57,19 @@ RSpec.describe GitSnip::CLI do
       expect(exitstatus).to eq(0)
 
       expect(repo.branch_exists?('merged')).to be_truthy
+    end
+
+    it 'should show decent message when branch list is empty' do
+      repo.commit 'Version 1'
+
+      stdout, _, exitstatus = git_snip('--dry-run')
+
+      expect(stdout).to eq(
+        "Would delete the following branches...\n\n" \
+        "No branches would be deleted.\n"
+      )
+
+      expect(exitstatus).to eq(0)
     end
   end
 

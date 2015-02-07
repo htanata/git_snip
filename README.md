@@ -26,6 +26,10 @@ And then execute:
 
 ## Usage
 
+Show branches which would be deleted:
+
+    $ git snip -n
+
 Delete branches already merged to master:
 
     $ git snip -f

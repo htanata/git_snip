@@ -9,6 +9,12 @@ module CliHelper
     [stdout, stderr, status.exitstatus]
   end
 
+  def setup_basic_repo
+    repo.commit('Version 1')
+    repo.commit_on_branch('merged', 'Version 2')
+    repo.merge_to_master('merged')
+  end
+
   private
 
   def lib

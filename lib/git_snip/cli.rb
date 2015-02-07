@@ -6,7 +6,10 @@ module GitSnip
     include Thor::Actions
 
     option :force, type: :boolean, aliases: '-f',
-      desc: 'Will refuse to run unless given -f.'
+      desc: 'Will refuse to run unless given -f or -n.'
+
+    option :dry_run, type: :boolean, aliases: '-n',
+      desc: "Show branches which would be deleted."
 
     option :repo, default: '.', banner: '<path>',
       desc: 'Path to git repository.'
@@ -16,6 +19,10 @@ module GitSnip
 
     desc '', 'Delete branches which have been merged to target.'
     def snip
+      if options[:dry_run]
+        return dry_run
+      end
+
       if !options[:force]
         say '-f option is needed to delete branches.', :red
         exit 64
@@ -36,6 +43,19 @@ module GitSnip
     default_task :snip
 
     private
+
+    def dry_run
+      cleaner = GitSnip::Cleaner.new(options[:repo], options[:target])
+
+      say 'Would delete the following branches...', :green
+      say
+
+      cleaner.merged_branches.each do |branch|
+        say_branch_info(branch)
+      end
+
+      say "\n\nDone.", :green
+    end
 
     def say_branch_info(branch)
       say column(branch.gcommit.sha, 7), :yellow

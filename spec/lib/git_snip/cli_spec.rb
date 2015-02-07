@@ -19,9 +19,7 @@ RSpec.describe GitSnip::CLI do
 
   describe 'with -f' do
     before do
-      repo.commit('Version 1')
-      repo.commit_on_branch('merged', 'Version 2')
-      repo.merge_to_master('merged')
+      setup_basic_repo
     end
 
     it 'should delete branches merged to master' do
@@ -33,6 +31,23 @@ RSpec.describe GitSnip::CLI do
       expect(exitstatus).to eq(0)
 
       expect(repo.branch_exists?('merged')).to be_falsey
+    end
+  end
+
+  describe 'with --dry-run' do
+    before do
+      setup_basic_repo
+    end
+
+    it 'should list branches merged to master' do
+      stdout, _, exitstatus = git_snip('--dry-run')
+
+      expect(stdout).to match("Would delete the following branches...\n\n")
+      expect(stdout).to match("merged")
+      expect(stdout).to match("\n\nDone.")
+      expect(exitstatus).to eq(0)
+
+      expect(repo.branch_exists?('merged')).to be_truthy
     end
   end
 

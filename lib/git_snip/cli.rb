@@ -1,5 +1,6 @@
 require 'thor'
 require 'git_snip/cleaner'
+require 'git_snip/branch'
 
 module GitSnip
   class CLI < Thor
@@ -69,15 +70,13 @@ module GitSnip
     end
 
     def say_branch_info(branch)
-      say column(branch.gcommit.sha, 7), :yellow
-      say column(branch.name, 12), :magenta
-      say column(branch.gcommit.date.strftime('%F'), 10), :green
-      say column(branch.gcommit.author.email.sub(/@.*/, ''), 8), [:blue, :bold]
-      say column(branch.gcommit.message, 39, last: true)
-    end
-
-    def column(string, width, last: false)
-      string[0, width].ljust(last ? width : width + 1)
+      Branch.columnize(branch).tap do |column|
+        say column.sha + ' ', :yellow
+        say column.name + ' ', :magenta
+        say column.date + ' ', :green
+        say column.author + ' ', [:blue, :bold]
+        say column.message
+      end
     end
 
     def cleaner_args

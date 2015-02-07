@@ -1,5 +1,7 @@
 # git-snip
 
+[![Build Status](https://travis-ci.org/htanata/git_snip.svg?branch=master)](https://travis-ci.org/htanata/git_snip)
+
 Clean obsolete branches on your git repository safely.
 
 When a branch has been merged remotely, your local branch is not automatically

@@ -33,8 +33,7 @@ module GitSnip
 
       cleaner = GitSnip::Cleaner.new(*cleaner_args)
 
-      say 'Deleting the following branches...', :green
-      say
+      say "Deleting the following branches...\n\n", :green
 
       deleted_branches = cleaner.delete_merged_branches do |branch|
         say_branch_info(branch)
@@ -54,8 +53,7 @@ module GitSnip
     def dry_run
       cleaner = GitSnip::Cleaner.new(*cleaner_args)
 
-      say 'Would delete the following branches...', :green
-      say
+      say "Would delete the following branches...\n\n", :green
 
       merged_branches = cleaner.merged_branches
 

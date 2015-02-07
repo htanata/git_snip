@@ -31,7 +31,7 @@ module GitSnip
         exit 64
       end
 
-      cleaner = GitSnip::Cleaner.new(*options.values_at(:repo, :target, :ignore))
+      cleaner = GitSnip::Cleaner.new(*cleaner_args)
 
       say 'Deleting the following branches...', :green
       say
@@ -52,7 +52,7 @@ module GitSnip
     private
 
     def dry_run
-      cleaner = GitSnip::Cleaner.new(options[:repo], options[:target])
+      cleaner = GitSnip::Cleaner.new(*cleaner_args)
 
       say 'Would delete the following branches...', :green
       say
@@ -80,6 +80,10 @@ module GitSnip
 
     def column(string, width, last: false)
       string[0, width].ljust(last ? width : width + 1)
+    end
+
+    def cleaner_args
+      options.values_at(:repo, :target, :ignore)
     end
   end
 end

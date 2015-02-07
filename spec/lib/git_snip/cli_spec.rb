@@ -71,6 +71,19 @@ RSpec.describe GitSnip::CLI do
 
       expect(exitstatus).to eq(0)
     end
+
+    it 'should not list ignored branches' do
+      setup_basic_repo
+
+      stdout, _, exitstatus = git_snip("--dry-run --ignore=merged")
+
+      expect(stdout).to eq(
+        "Would delete the following branches...\n\n" \
+        "No branches would be deleted.\n"
+      )
+
+      expect(exitstatus).to eq(0)
+    end
   end
 
   describe 'with --target' do

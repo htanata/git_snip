@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Hendy Tanata"]
   spec.email         = ["htanata@gmail.com"]
   spec.summary       = %q{Clean obsolete branches on your local git repository safely}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/htanata/git_snip"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0") - %w(Guardfile)

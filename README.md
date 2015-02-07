@@ -34,6 +34,10 @@ Delete branches already merged to master:
 
     $ git snip -f
 
+Delete branches already merged to master, except staging and production:
+
+    $ git snip -f --ignore=staging production
+
 Delete branches already merged to master on `/some/repo/path`:
 
     $ git snip -f --repo=/some/repo/path

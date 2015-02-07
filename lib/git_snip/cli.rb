@@ -17,6 +17,9 @@ module GitSnip
     option :target, default: 'master', banner: '<branch>',
       desc: 'Branch to compare equivalence against.'
 
+    option :ignore, type: :array, default: [],
+      desc: 'List of branches to ignore.'
+
     desc '', 'Delete branches which have been merged to target.'
     def snip
       if options[:dry_run]
@@ -28,7 +31,7 @@ module GitSnip
         exit 64
       end
 
-      cleaner = GitSnip::Cleaner.new(options[:repo], options[:target])
+      cleaner = GitSnip::Cleaner.new(*options.values_at(:repo, :target, :ignore))
 
       say 'Deleting the following branches...', :green
       say

@@ -93,4 +93,27 @@ RSpec.describe GitSnip::CLI do
       expect(repo.branch_exists?('master')).to be_falsy
     end
   end
+
+  describe 'with --ignore' do
+    let(:ignored_branches) { %w[ignore_1 ignore_2] }
+
+    it 'should not delete ignored branches' do
+      repo.commit('Version 1')
+      repo.commit_on_branch(ignored_branches.first, 'Version 2')
+
+      repo.commit_on_branch(
+        ignored_branches.last, 'Version 3', ignored_branches.first)
+
+      repo.merge_to_master(ignored_branches.last)
+
+      stdout, _, exitstatus =
+        git_snip("-f --ignore=#{ignored_branches.join(' ')}")
+
+      expect(stdout).to eq(
+        "Deleting the following branches...\n\n" \
+        "No branches were deleted.\n"
+      )
+      expect(exitstatus).to eq(0)
+    end
+  end
 end

@@ -44,7 +44,7 @@ module GitSnip
       if deleted_branches.empty?
         say 'No branches were deleted.', :green
       else
-        say "\n\nDone.", :green
+        say "\nDone.", :green
       end
     end
     default_task :snip
@@ -63,7 +63,7 @@ module GitSnip
       end
 
       if merged_branches.any?
-        say "\n\nDone.", :green
+        say "\nDone.", :green
       else
         say 'No branches would be deleted.', :green
       end
@@ -75,7 +75,7 @@ module GitSnip
         say column.name + ' ', :magenta
         say column.date + ' ', :green
         say column.author + ' ', [:blue, :bold]
-        say column.message
+        say column.message.strip + "\n"
       end
     end
 

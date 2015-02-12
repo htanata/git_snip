@@ -129,4 +129,14 @@ RSpec.describe GitSnip::CLI do
       expect(exitstatus).to eq(0)
     end
   end
+
+  describe 'branch formatting' do
+    it 'should add new line after each branch line' do
+      setup_basic_repo
+
+      stdout, _, _ = git_snip('--dry-run')
+
+      expect(stdout).to match(/merged.+Version 2\n/)
+    end
+  end
 end

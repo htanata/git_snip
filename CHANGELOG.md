@@ -1,5 +1,7 @@
 ## master (unreleased)
 
+## 0.0.3
+
 * Fix missing new line after each branch line.
 * Fix bad formatting of multiline commit message.
 

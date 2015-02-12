@@ -1,12 +1,31 @@
-require 'open3'
+require 'git_snip/cli'
+require_relative 'cli_runner'
 
 module CliHelper
+  class FakeKernel
+    attr_reader :exitstatus
+
+    def initialize
+      @exitstatus = 0
+    end
+
+    def exit(exitstatus)
+      @exitstatus = exitstatus
+    end
+  end
+
   def git_snip(args = '')
-    cmd = "#{Gem.ruby} -I#{lib} #{bin} #{cmd} #{args} --repo=#{repo.path}"
+    stdin, stdout, stderr = Array.new(3) { StringIO.new }
 
-    stdout, stderr, status = Open3.capture3(cmd)
+    runner =
+      GitSnip::CLIRunner.new("#{args} --repo=#{repo.path}".split(' '),
+        stdin, stdout, stderr, FakeKernel.new)
 
-    [stdout, stderr, status.exitstatus]
+    exitstatus = runner.execute!
+
+    [stdin, stdout, stderr].each(&:rewind)
+
+    [stdout.read, stderr.read, exitstatus]
   end
 
   def setup_basic_repo

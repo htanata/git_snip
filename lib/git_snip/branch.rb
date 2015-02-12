@@ -1,7 +1,6 @@
 module GitSnip
   module Branch
-    class Column < Struct.new(:sha, :name, :date, :author, :message)
-    end
+    Column = Struct.new(:sha, :name, :date, :author, :message)
 
     def self.columnize(branch)
       Column.new.tap do |column|

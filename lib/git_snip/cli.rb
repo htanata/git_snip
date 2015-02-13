@@ -70,12 +70,12 @@ module GitSnip
     end
 
     def say_branch_info(branch)
-      Branch.columnize(branch).tap do |column|
-        say column.sha + ' ', :yellow
-        say column.name + ' ', :magenta
-        say column.date + ' ', :green
-        say column.author + ' ', [:blue, :bold]
-        say column.message.strip + "\n"
+      Branch.row(branch).tap do |row|
+        say row.sha + ' ', :yellow
+        say row.name + ' ', :magenta
+        say row.date + ' ', :green
+        say row.author + ' ', [:blue, :bold]
+        say row.message.strip + "\n"
       end
     end
 

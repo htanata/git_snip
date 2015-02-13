@@ -1,14 +1,14 @@
 module GitSnip
   module Branch
-    Column = Struct.new(:sha, :name, :date, :author, :message)
+    Row = Struct.new(:sha, :name, :date, :author, :message)
 
-    def self.columnize(branch)
-      Column.new.tap do |column|
-        column.sha = column(branch.gcommit.sha, 7)
-        column.name = column(branch.name, 12)
-        column.date = column(branch.gcommit.date.strftime('%F'), 10)
-        column.author = column(branch.gcommit.author.email.sub(/@.*/, ''), 8)
-        column.message = column(first_line(branch.gcommit.message), 39)
+    def self.row(branch)
+      Row.new.tap do |row|
+        row.sha = column(branch.gcommit.sha, 7)
+        row.name = column(branch.name, 12)
+        row.date = column(branch.gcommit.date.strftime('%F'), 10)
+        row.author = column(branch.gcommit.author.email.sub(/@.*/, ''), 8)
+        row.message = column(first_line(branch.gcommit.message), 39)
       end
     end
 

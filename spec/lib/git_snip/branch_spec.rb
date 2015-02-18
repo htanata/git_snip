@@ -1,19 +1,21 @@
 require 'git_snip/branch'
 
 RSpec.describe GitSnip::Branch do
-  it 'should return values with number of characters within 80' do
-    result = described_class.row(build_branch(build_row))
+  describe '.row' do
+    it 'should return values with number of characters within 80' do
+      result = described_class.row(build_branch(build_row))
 
-    expect([
-      result.sha, result.name, result.author, result.date, result.message
-    ].join(' ').size).to eq(80)
-  end
+      expect([
+        result.sha, result.name, result.author, result.date, result.message
+      ].join(' ').size).to eq(80)
+    end
 
-  it 'should remove message starting from the first new line' do
-    row = build_row(message: "First line\n\nThird line")
-    result = described_class.row(build_branch(row))
+    it 'should remove message starting from the first new line' do
+      row = build_row(message: "First line\n\nThird line")
+      result = described_class.row(build_branch(row))
 
-    expect(result.message).to eq('First line' + (' ' * 29))
+      expect(result.message).to eq('First line' + (' ' * 29))
+    end
   end
 
   def build_branch(row)

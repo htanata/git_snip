@@ -139,4 +139,20 @@ RSpec.describe GitSnip::CLI do
       expect(stdout).to match(/merged.+Version 2\n/)
     end
   end
+
+  describe 'with --full' do
+    it 'should not wrap the branch listing' do
+      setup_basic_repo
+
+      repo.commit_on_branch(
+        'branch_with_really_long_name', "#{'A' * 100}\n\n#{'B' * 100}")
+
+      repo.merge_to_master('branch_with_really_long_name')
+
+      stdout, _, _ = git_snip('-n --full')
+
+      expect(stdout).to match("#{'A' * 100}\n")
+      expect(stdout).to match('branch_with_really_long_name')
+    end
+  end
 end

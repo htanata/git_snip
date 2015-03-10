@@ -18,6 +18,23 @@ RSpec.describe GitSnip::Branch do
     end
   end
 
+  describe '.full_row' do
+    it 'should return values while keeping most of the words' do
+      row = build_row(
+        message: ('A' * 100) + "\n\n" + ('B' * 85),
+        author: 'would_you_kindly@example.com'
+      )
+
+      result = described_class.full_row(build_branch(row))
+
+      expect(result.sha).to eq(row.sha)
+      expect(result.name).to eq(row.name)
+      expect(result.author).to eq(row.author)
+      expect(result.date).to eq(row.date.iso8601)
+      expect(result.message).to eq('A' * 100)
+    end
+  end
+
   def build_branch(row)
     author = instance_double('Git::Author', email: row.author)
 

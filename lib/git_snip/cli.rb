@@ -21,6 +21,9 @@ module GitSnip
     option :ignore, type: :array, default: [],
       desc: 'List of branches to ignore.'
 
+    option :full, type: :boolean,
+      desc: 'Show most branch information without cropping.'
+
     desc '', 'Delete branches which have been merged to target.'
     def snip
       if options[:dry_run]
@@ -69,14 +72,14 @@ module GitSnip
       end
     end
 
-    def say_branch_info(branch)
-      Branch.row(branch).tap do |row|
-        say row.sha + ' ', :yellow
-        say row.name + ' ', :magenta
-        say row.date + ' ', :green
-        say row.author + ' ', [:blue, :bold]
-        say row.message.strip + "\n"
-      end
+    def say_branch_info(branch, full = false)
+      row = options[:full] ? Branch.full_row(branch) : Branch.row(branch)
+
+      say row.sha + ' ', :yellow
+      say row.name + ' ', :magenta
+      say row.date + ' ', :green
+      say row.author + ' ', [:blue, :bold]
+      say row.message.strip + "\n"
     end
 
     def cleaner_args

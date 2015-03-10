@@ -12,6 +12,16 @@ module GitSnip
       end
     end
 
+    def self.full_row(branch)
+      Row.new.tap do |row|
+        row.sha = branch.gcommit.sha
+        row.name = branch.name
+        row.date = branch.gcommit.date.iso8601
+        row.author = branch.gcommit.author.email
+        row.message = first_line(branch.gcommit.message)
+      end
+    end
+
     private
 
     def self.column(string, width)

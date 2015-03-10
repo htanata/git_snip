@@ -1,5 +1,10 @@
 ## master (unreleased)
 
+* Add `--full` option to show most branch information without cropping.
+
+  Thanks to @bgreg for the idea and suggestions. Thanks to
+  [Ruby Workshop](http://www.meetup.com/Silicone-Valley-Ruby-Workshop/) too.
+
 ## 0.0.3
 
 * Fix missing new line after each branch line.

@@ -38,6 +38,11 @@ Delete branches already merged to master:
 
     $ git snip -f
 
+Delete branches already merged to master and show more detailed listing of
+deleted branches:
+
+    $ git snip -f --full
+
 Delete branches already merged to master, except staging and production:
 
     $ git snip -f --ignore=staging production

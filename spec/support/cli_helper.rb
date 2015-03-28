@@ -14,11 +14,14 @@ module CliHelper
     end
   end
 
-  def git_snip(args = '')
+  def git_snip(args = '', blank_slate = false)
     stdin, stdout, stderr = Array.new(3) { StringIO.new }
 
+    arguments = args.dup
+    arguments << " --repo=#{repo.path}" unless blank_slate
+
     runner =
-      GitSnip::CLIRunner.new("#{args} --repo=#{repo.path}".split(' '),
+      GitSnip::CLIRunner.new(arguments.split(' '),
         stdin, stdout, stderr, FakeKernel.new)
 
     exitstatus = runner.execute!

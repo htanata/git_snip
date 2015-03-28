@@ -55,6 +55,10 @@ Delete branches already merged to `branch_a`:
 
     $ git snip -f --target=branch_a
 
+You can also list the available options from command line:
+
+    $ git snip help
+
 ## Contributing
 
 1. Fork it ( https://github.com/htanata/git_snip/fork )

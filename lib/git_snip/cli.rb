@@ -6,6 +6,12 @@ module GitSnip
   class CLI < Thor
     include Thor::Actions
 
+    class << self
+      def help(shell, subcommand = 'snip')
+        command_help(shell, subcommand)
+      end
+    end
+
     option :force, type: :boolean, aliases: '-f',
       desc: 'Will refuse to run unless given -f or -n.'
 

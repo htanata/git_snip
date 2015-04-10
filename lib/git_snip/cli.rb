@@ -1,6 +1,7 @@
 require 'thor'
 require 'git_snip/cleaner'
 require 'git_snip/branch'
+require 'git_snip/config'
 
 module GitSnip
   class CLI < Thor
@@ -32,11 +33,11 @@ module GitSnip
 
     desc '', 'Delete branches which have been merged to target.'
     def snip
-      if options[:dry_run]
+      if opts[:dry_run]
         return dry_run
       end
 
-      if !options[:force]
+      if !opts[:force]
         say '-f option is needed to delete branches.', :red
         exit 64
       end
@@ -79,7 +80,7 @@ module GitSnip
     end
 
     def say_branch_info(branch, full = false)
-      row = options[:full] ? Branch.full_row(branch) : Branch.row(branch)
+      row = opts[:full] ? Branch.full_row(branch) : Branch.row(branch)
 
       say row.sha + ' ', :yellow
       say row.name + ' ', :magenta
@@ -89,7 +90,28 @@ module GitSnip
     end
 
     def cleaner_args
-      options.values_at(:repo, :target, :ignore)
+      opts.values_at(:repo, :target, :ignore)
+    end
+
+    def opts
+      @opts ||= begin
+        config = Config.new(options[:repo])
+
+        options_dup = options.dup
+
+        options_dup.each_pair do |k, v|
+          if v.is_a?(Array) && v.empty?
+            config_value = config.options[k]
+
+            if config_value.is_a?(Array) && config_value.any?
+              options_dup[k] = config_value
+            end
+          end
+        end
+
+        Thor::CoreExt::HashWithIndifferentAccess.new(
+          config.options.merge(options_dup)).freeze
+      end
     end
   end
 end

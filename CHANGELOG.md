@@ -1,5 +1,7 @@
 ## master (unreleased)
 
+* Add config file.
+
 * Add `--full` option to show most branch information without cropping.
 
   Thanks to @bgreg for the idea and suggestions. Thanks to

@@ -155,4 +155,56 @@ RSpec.describe GitSnip::CLI do
       expect(stdout).to match('branch_with_really_long_name')
     end
   end
+
+  context 'with config file' do
+    include_context 'config'
+
+    let(:config_dir) { repo.path }
+
+    before do
+      remove_config(config_dir)
+    end
+
+    it 'should handle boolean config options' do
+      setup_basic_repo
+
+      create_config(config_dir, 'dry_run' => true)
+
+      stdout, _, exitstatus = git_snip
+
+      expect(exitstatus).to eq(0)
+      expect(stdout).to match("Would delete the following branches...\n\n")
+      expect(stdout).to match("merged")
+      expect(stdout).to match("\n\nDone.")
+      expect(exitstatus).to eq(0)
+
+      expect(repo.branch_exists?('merged')).to be_truthy
+    end
+
+    it 'should set handle list config options' do
+      setup_basic_repo
+
+      create_config(config_dir, 'ignore' => ['merged'])
+
+      stdout, _, exitstatus = git_snip('--dry-run')
+
+      expect(stdout).to eq(
+        "Would delete the following branches...\n\n" \
+        "No branches would be deleted.\n"
+      )
+
+      expect(exitstatus).to eq(0)
+    end
+
+    specify 'command line arguments should override config' do
+      setup_basic_repo
+
+      create_config(config_dir, 'dry_run' => true)
+
+      stdout, _, exitstatus = git_snip('--no-dry-run')
+
+      expect(stdout).to eq("-f option is needed to delete branches.\n")
+      expect(exitstatus).to eq(64)
+    end
+  end
 end

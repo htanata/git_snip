@@ -59,6 +59,22 @@ You can also list the available options from command line:
 
     $ git snip help
 
+## Config file
+
+If you want some arguments to always be set, add a file to the root of the
+repository with name `.git_snip.yml`. Specify the default arguments as YAML in
+the file like this:
+
+```yaml
+full: true
+ignore:
+  - staging
+  - production
+```
+
+The config arguments are overridden when the same arguments are set from command
+line.
+
 ## Contributing
 
 1. Fork it ( https://github.com/htanata/git_snip/fork )

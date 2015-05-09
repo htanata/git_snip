@@ -1,5 +1,3 @@
-require 'git_snip/branch'
-
 module GitSnip
   class Printer
     def initialize(cli)

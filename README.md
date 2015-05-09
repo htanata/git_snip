@@ -30,6 +30,10 @@ And then execute:
 
 ## Usage
 
+You can list the available options from command line:
+
+    $ git snip help
+
 Show branches which would be deleted (accepts the same arguments as `-f`):
 
     $ git snip -n
@@ -54,10 +58,6 @@ Delete branches already merged to master on `/some/repo/path`:
 Delete branches already merged to `branch_a`:
 
     $ git snip -f --target=branch_a
-
-You can also list the available options from command line:
-
-    $ git snip help
 
 ## Config file
 

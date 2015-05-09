@@ -2,6 +2,7 @@ require 'thor'
 require 'git_snip/cleaner'
 require 'git_snip/branch'
 require 'git_snip/config'
+require 'git_snip/printer'
 
 module GitSnip
   class CLI < Thor
@@ -38,23 +39,23 @@ module GitSnip
       end
 
       if !opts[:force]
-        say '-f option is needed to delete branches.', :red
+        printer.force_option_needed
         exit 64
       end
 
       cleaner = GitSnip::Cleaner.new(*cleaner_args)
 
-      say "Deleting the following branches...\n\n", :green
+      printer.deleting_branches
 
       deleted_branches = cleaner.delete_merged_branches do |branch|
-        say_branch_info(branch)
+        printer.branch_info(branch_row(branch))
         true
       end
 
       if deleted_branches.empty?
-        say 'No branches were deleted.', :green
+        printer.no_branches_deleted
       else
-        say "\nDone.", :green
+        printer.done
       end
     end
     default_task :snip
@@ -64,29 +65,19 @@ module GitSnip
     def dry_run
       cleaner = GitSnip::Cleaner.new(*cleaner_args)
 
-      say "Would delete the following branches...\n\n", :green
+      printer.will_delete_branches
 
       merged_branches = cleaner.merged_branches
 
       merged_branches.each do |branch|
-        say_branch_info(branch)
+        printer.branch_info(branch_row(branch))
       end
 
       if merged_branches.any?
-        say "\nDone.", :green
+        printer.done
       else
-        say 'No branches would be deleted.', :green
+        printer.no_branches_to_delete
       end
-    end
-
-    def say_branch_info(branch, full = false)
-      row = opts[:full] ? Branch.full_row(branch) : Branch.row(branch)
-
-      say row.sha + ' ', :yellow
-      say row.name + ' ', :magenta
-      say row.date + ' ', :green
-      say row.author + ' ', [:blue, :bold]
-      say row.message.strip + "\n"
     end
 
     def cleaner_args
@@ -112,6 +103,14 @@ module GitSnip
         Thor::CoreExt::HashWithIndifferentAccess.new(
           config.options.merge(options_dup)).freeze
       end
+    end
+
+    def printer
+      @printer ||= Printer.new(self)
+    end
+
+    def branch_row(branch)
+      opts[:full] ? Branch.full_row(branch) : Branch.row(branch)
     end
   end
 end

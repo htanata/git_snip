@@ -33,6 +33,17 @@ And then execute:
 You can list the available options from command line:
 
     $ git snip help
+    Usage:
+      git-snip
+    Options:
+      -f, [--force]                    # Will refuse to run unless given -f or -n.
+      -n, [--dry-run], [--no-dry-run]  # Show branches which would be deleted.
+          [--repo=<path>]              # Path to git repository.
+                                       # Default: .
+          [--target=<branch>]          # Branch to compare equivalence against.
+                                       # Default: master
+          [--ignore=one two three]     # List of branches to ignore.
+          [--full], [--no-full]        # Show most branch information without cropping.
 
 Show branches which would be deleted (accepts the same arguments as `-f`):
 

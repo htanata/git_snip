@@ -12,6 +12,8 @@ deleted and will build up, making it harder to find your relevant branches.
 This gem aims to fix that by doing using [`git cherry`][git-cherry] to find
 local branches which have been merged and delete them.
 
+[![asciicast](https://asciinema.org/a/32614.png)](https://asciinema.org/a/32614)
+
 ## Installation
 
 Install using RubyGems:

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
+require 'simplecov'
+SimpleCov.start
 
 Dir['spec/support/**/*.rb'].each { |f| require f.sub(/\Aspec\//, '') }
 

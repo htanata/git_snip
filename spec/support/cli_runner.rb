@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/cli'
 
 # https://github.com/erikhuda/thor/wiki/Integrating-with-Aruba-In-Process-Runs

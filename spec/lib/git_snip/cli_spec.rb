@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/cli'
 
 RSpec.describe GitSnip::CLI do

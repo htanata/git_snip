@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/cleaner'
 
 RSpec.describe GitSnip::Cleaner do

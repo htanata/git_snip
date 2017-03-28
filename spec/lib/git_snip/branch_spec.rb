@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/branch'
 
 RSpec.describe GitSnip::Branch do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/options'
 
 RSpec.describe GitSnip::Options do

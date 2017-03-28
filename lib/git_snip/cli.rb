@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'thor'
 require 'git_snip/cleaner'
 require 'git_snip/branch'

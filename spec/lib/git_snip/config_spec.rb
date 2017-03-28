@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/config'
 
 RSpec.describe GitSnip::Config do

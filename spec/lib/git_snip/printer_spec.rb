@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/printer'
 
 RSpec.describe GitSnip::Printer do

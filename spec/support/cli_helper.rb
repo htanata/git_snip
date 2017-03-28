@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'git_snip/cli'
 require_relative 'cli_runner'
 

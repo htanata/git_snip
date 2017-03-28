@@ -28,7 +28,7 @@ module GitSnip
         # of an unhandled exception.
         b = e.backtrace
         @stderr.puts("#{b.shift}: #{e.message} (#{e.class})")
-        @stderr.puts(b.map{|s| "\tfrom #{s}"}.join("\n"))
+        @stderr.puts(b.map { |s| "\tfrom #{s}" }.join("\n"))
         1
       rescue SystemExit => e
         e.status

@@ -58,5 +58,4 @@ RSpec.describe GitSnip::Branch do
       row.message = attrs[:message] || 'Hello, my name is Inigo Montoya.'
     end
   end
-
 end

@@ -19,7 +19,7 @@ module GitSnip
       desc: 'Will refuse to run unless given -f or -n.'
 
     option :dry_run, type: :boolean, aliases: '-n',
-      desc: "Show branches which would be deleted."
+      desc: 'Show branches which would be deleted.'
 
     option :repo, default: '.', banner: '<path>',
       desc: 'Path to git repository.'

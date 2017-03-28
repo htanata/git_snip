@@ -10,7 +10,6 @@ rvm:
   - 2.2.0
   - 2.3.0
   - 2.4.0
-  - rbx-2
   - ruby-head
 
 cache: bundler

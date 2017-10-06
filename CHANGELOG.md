@@ -1,5 +1,7 @@
 ## master (unreleased)
 
+## 0.0.5
+
 * Fix: --full option does not work for some (#1).
 
 ## 0.0.4

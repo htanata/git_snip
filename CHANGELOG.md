@@ -1,5 +1,7 @@
 ## master (unreleased)
 
+* Fix: --full option does not work for some (#1).
+
 ## 0.0.4
 
 * Add config file.

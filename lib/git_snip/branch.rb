@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'time'
+
 module GitSnip
   module Branch
     Row = Struct.new(:sha, :name, :date, :author, :message)

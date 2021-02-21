@@ -1,0 +1,59 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/repo
+
+  steps:
+    - checkout
+
+    - run:
+        name: Install dependencies
+        command: |
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+    - run:
+        name: Configure git
+        command: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
+    - run:
+        name: Run tests
+        command: |
+          mkdir /tmp/test-results
+          bundle exec rspec --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
+          CODECLIMATE_REPO_TOKEN=ea0ada8842b47f59715526e88df53a81afff061152ce67bb73a8baa75443ea43 bundle exec codeclimate-test-reporter
+
+    - store_test_results:
+        path: /tmp/test-results
+
+    - store_artifacts:
+        path: /tmp/test-results
+        destination: test-results
+
+jobs:
+  "ruby-2_1":
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.1
+  "ruby-2_2":
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.2
+  "ruby-2_3":
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.3
+  "ruby-2_4":
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.4
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "ruby-2_1"
+      - "ruby-2_2"
+      - "ruby-2_3"
+      - "ruby-2_4"
